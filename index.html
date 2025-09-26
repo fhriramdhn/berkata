@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Haheho</title>
+  <!-- Font Gloria Hallelujah -->
+  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Gloria Hallelujah", cursive;
+      background: #f2f2f2;
+    }
+
+    .page {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .active {
+      display: flex;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #ff6666;
+      color: #fff;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    button:hover {
+      background: #ff3333;
+    }
+
+    /* Background kertas untuk confess */
+    .confess-box {
+      max-width: 600px;
+      padding: 30px;
+      background: #fff url('https://www.transparenttextures.com/patterns/white-paper.png');
+      border: 2px solid #d4d4d4;
+      border-radius: 10px;
+      box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    /* Animasi fade-in teks */
+    .fade-text {
+      opacity: 0;
+      animation: fadeInSlow 2s forwards;
+    }
+
+    .fade-text:nth-child(1) { animation-delay: 0.5s; }
+    .fade-text:nth-child(2) { animation-delay: 2.5s; }
+    .fade-text:nth-child(3) { animation-delay: 4.5s; }
+
+    @keyframes fadeInSlow {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Halaman terakhir */
+    .thanks-box {
+      font-size: 20px;
+      color: #444;
+      background: #fff url('https://www.transparenttextures.com/patterns/white-paper.png');
+      border: 2px solid #d4d4d4;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+      opacity: 0;
+      animation: fadeInSlow 2s forwards;
+    }
+
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 20px;
+      }
+      button {
+        font-size: 16px;
+        padding: 10px 16px;
+      }
+      .confess-box, .thanks-box {
+        width: 100%;
+        font-size: 16px;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Halaman 1 -->
+  <div class="page active" id="page1">
+    <h2>Hai Yasmina 😏</h2>
+    <button id="btn1">next</button>
+  </div>
+
+  <!-- Halaman 2 -->
+  <div class="page" id="page2">
+    <h2>pencet lagii rek!! 🤨</h2>
+    <button id="btn2">next</button>
+  </div>
+
+  <!-- Halaman 3 -->
+  <div class="page" id="page3">
+    <h2>sumpah inii yang terakhir deh 😅</h2>
+    <button id="btn3">next</button>
+  </div>
+
+  <!-- Halaman Confess 1 -->
+  <div class="page" id="confess1">
+    <div class="confess-box">
+      <p class="fade-text">Jujur, aku agak malu bikin beginian… tapi ya wis lah, kata orang hidup ini kadang harus nekat.</p>
+      <p class="fade-text">Sebenarnya aku sering chat kamu itu bukan tanpa alasan, ya kali chat terus tapi nggak ada maksud apa-apa 😅.</p>
+      <button id="btn4">next</button>
+    </div>
+  </div>
+
+  <!-- Halaman Confess 2 -->
+  <div class="page" id="confess2">
+    <div class="confess-box">
+      <p class="fade-text">Makasih ya sering ngingetin aku buat minum air putih sama istirahat.</p>
+      <p class="fade-text">(meski kadang aku cuma bales "semangat" doang, hehe 🙃).</p>
+      <p class="fade-text">Terus terang aku juga bingung mau ngomong gimana, soalnya jarang banget aku cerita kayak gini.</p>
+      <button id="btn5">next</button>
+    </div>
+  </div>
+
+  <!-- Halaman Confess 3 -->
+  <div class="page" id="confess3">
+    <div class="confess-box">
+      <p class="fade-text">Intinya… aku pengen bisa lebih deket aja sama kamu.</p>
+      <p class="fade-text">Nggak usah langsung mikir yang aneh-aneh, maksudku ya biar ngobrol kita lebih enak, nggak cuma sekedar basa-basi.</p>
+      <p class="fade-text">Itu aja sih, hehe ✌️.</p>
+      <button id="btnDone">next</button>
+    </div>
+  </div>
+
+  <!-- Halaman Terakhir -->
+  <div class="page" id="thanksPage">
+    <div class="thanks-box">
+      <p>Makasi yas udah mau bacaa</p>
+      <button id="btnBack">balik ke awal</button>
+    </div>
+  </div>
+
+  <script>
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+    }
+
+    function makeButtonAnnoying(btn, nextPageId) {
+      let moveCount = 0;
+      btn.addEventListener('mouseover', () => {
+        if (moveCount < 4) {
+          btn.style.position = "absolute";
+          btn.style.top = Math.random() * 80 + "%";
+          btn.style.left = Math.random() * 80 + "%";
+          moveCount++;
+        }
+      });
+      btn.addEventListener('click', () => showPage(nextPageId));
+    }
+
+    // Tombol 1 & 2 ngeselin
+    makeButtonAnnoying(document.getElementById('btn1'), 'page2');
+    makeButtonAnnoying(document.getElementById('btn2'), 'page3');
+
+    // Tombol 3 normal
+    document.getElementById('btn3').addEventListener('click', () => showPage('confess1'));
+
+    // Tombol confess normal
+    document.getElementById('btn4').addEventListener('click', () => showPage('confess2'));
+    document.getElementById('btn5').addEventListener('click', () => showPage('confess3'));
+
+    // Tombol terakhir pindah ke halaman "Makasih"
+    document.getElementById('btnDone').addEventListener('click', () => showPage('thanksPage'));
+
+    // Balik ke awal
+    document.getElementById('btnBack').addEventListener('click', () => showPage('page1'));
+  </script>
+</body>
+</html>
